@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "pagarme": "^4.7.1",
     "react": "16.8",
     "react-dom": "16.8",
     "react-router-dom": "^4.3.1",
