@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Row, Column } from '../styles/Grid'
 import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
+import config from '../../config'
 
 const Summary = ({ products }) => {
 
