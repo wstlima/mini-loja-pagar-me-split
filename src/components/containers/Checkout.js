@@ -7,8 +7,8 @@ import Summary from '../containers/Summary';
 const Checkout = props => {
   const [products, setProducts] = useState();
 
-  const [fetching, setFetching] = useState(false)
-  const [error, setError] = useState(false)
+  const [fetching, setFetching] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -17,11 +17,11 @@ const Checkout = props => {
       setProducts(prodResult.data);
 
     } catch (err) {
-      setError(true)
+      setError(true);
     }
     finally {
       setTimeout(() => {
-        setFetching(false)
+        setFetching(false);
       }, 500)
     }
   };
@@ -44,11 +44,11 @@ const Checkout = props => {
               totalPrice: '',
             };
           }
-          return item
+          return item;
         })
       setProducts(updatedProducts)
     }, [products]
-  )
+  );
 
   // Função de callback para atualizar o produto com quantidade e preço total
   const updateQuantityCallback = useCallback(
@@ -64,10 +64,10 @@ const Checkout = props => {
             };
           }
           return item
-        })
-      setProducts(updatedProducts)
+        });
+      setProducts(updatedProducts);
     }, [products]
-  )
+  );
 
   return (
     <>
@@ -82,4 +82,4 @@ const Checkout = props => {
   )
 }
 
-export default Checkout
+export default Checkout;

@@ -28,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
   .alinhar-centro {
     text-align: center !important;
   }
+
+  .btn-invisible{
+    display:none;
+  }
   
   .btn-finalizar {
     background-color:#44c767;

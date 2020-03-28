@@ -3,6 +3,7 @@ import { Grid, Row, Column } from '../styles/Grid'
 import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
 import Pay from './Pay'
 
+
 const Summary = ({ products }) => {
 
   // Para calcular o valor total de todos os produtos selecionados
@@ -15,7 +16,7 @@ const Summary = ({ products }) => {
         }
         return sum
       }, 0);
-      calculatedPrice = `$${sumPrice.toFixed(2)}`
+      calculatedPrice = `${sumPrice.toFixed(2)}`
     }
     return calculatedPrice
   }
@@ -38,7 +39,7 @@ const Summary = ({ products }) => {
                 return (selected && quantity > 0) ?
                   <HighlightedRow data-testid={`${name}_selected`} key={index}>
                     <Column md={8}>{name} {quantity}X{price}</Column>
-                    <Column md={4} className='alinhar-direita'>{`$${totalPrice.toFixed(2)}`}</Column>
+                    <Column md={4} className='alinhar-direita'>{`R$${totalPrice.toFixed(2)}`}</Column>
                   </HighlightedRow>
                   : null
               }
@@ -50,7 +51,7 @@ const Summary = ({ products }) => {
               <Row>
                 <Column md={12}>
                   <Span title={'true'}></Span>
-                  <Content last>Valor Total <span>{getAllProductsTotalPrice() ? `R$${(parseFloat(getAllProductsTotalPrice().replace(/[R$,]/g, '')))}` : '$0'}</span></Content>
+                  <Content last>Valor Total <span>{getAllProductsTotalPrice() ? `R$${(parseFloat(getAllProductsTotalPrice().replace(/[R$,]/g, '')))}` : 'R$0'}</span></Content>
                 </Column>
               </Row>
             </Column>
@@ -59,7 +60,7 @@ const Summary = ({ products }) => {
       </Grid>
       <Row className='alinhar-centro'>
         <Column className='alinhar-centro' xs={12} md={12}>
-          <Pay/> 
+          <Pay amount={getAllProductsTotalPrice()}/> 
         </Column>
       </Row>
 

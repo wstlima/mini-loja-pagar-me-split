@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from "react";
-import config from '../../config'
-import pagarme from 'pagarme'
+import config from '../../config';
+import pagarme from 'pagarme';
 
 // Componente funcional
-export default function Pay() {
-    const [buttonText, setButtonText] = useState("CONCLUIR COMPRA");
-    const [cardHash, setcardHash] = useState("");
-    const [card] = useState({
-        card_number: '5565194896463038',
-        card_holder_name: 'Well Lima',
-        card_expiration_date: '1120',
-        card_cvv: '761',
-    });
+export default function Pay({ amount }) {
 
-    // Similar a componentDidMount e componentDidUpdate:
+    const [buttonText, setButtonText] = useState("CONCLUIR COMPRA");
+    const [cardHash, setCardHash] = useState("");
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
     useEffect(() => {
 
-        if(buttonText==='PROCESSAR'){
+        isDisabledButton();
+
+        if (buttonText === 'PROCESSAR') {
             pagarmeConnect();
             setButtonText("PROCESSANDO...");
         }
 
-        if(buttonText==='PROCESSADO'){
+        if (buttonText === 'PROCESSADO') {
             console.log('cardHash :: ', cardHash);
             setButtonText("COMPRA CONCLUÍDA");
         }
-
     });
 
     function pagarmeConnect() {
         pagarme.client.connect({ encryption_key: config.ENCRYPTION_KEY_TEST })
-            .then(client => client.security.encrypt(card.card_number))
+            .then(client => client.security.encrypt(config.CARD_NUMBER))
             .then(card_hash => {
-                setcardHash(card_hash);
+                setCardHash(card_hash);
                 setButtonText("PROCESSADO");
-            })
+            });
     }
 
     function handleClick() {
         return setButtonText("PROCESSAR");
     }
 
-    return <button type="button" className="btn-finalizar alinhar-centro" onClick={handleClick}>{buttonText}</button>;
+    function isDisabledButton() {
+        setButtonDisabled(amount === "0.00" ? true : false);
+    }
+
+    return <button
+        disabled={buttonDisabled || buttonText === 'COMPRA CONCLUÍDA' ? true : false}
+        type="button"
+        className={`${buttonDisabled ? "btn-invisible" : "btn-finalizar alinhar-centro"}`}
+        onClick={handleClick}>{buttonText}
+    </button>;
 }
