@@ -23,9 +23,9 @@
   {
     "id": 4,
     "sku": 9197907543445677,
-    "name": "Caneta Bic",
+    "name": "Memória 8GB",
     "description": "Na cor Azul",
-    "price": "R$1.50"
+    "price": "R$100.50"
   },
   {
     "id": 5,
@@ -53,7 +53,7 @@
     "sku": 5619496040738316,
     "name": "Ticket de Metrô Cheio",
     "description": "",
-    "price": "R$0.09"
+    "price": "R$500.00"
   },
   {
     "id": 9,

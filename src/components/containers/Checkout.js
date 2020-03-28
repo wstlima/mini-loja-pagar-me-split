@@ -6,7 +6,6 @@ import Summary from '../containers/Summary';
 
 const Checkout = props => {
   const [products, setProducts] = useState();
-
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState(false);
 

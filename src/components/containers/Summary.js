@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { Grid, Row, Column } from '../styles/Grid'
 import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
 import Pay from './Pay'
 
 
 const Summary = ({ products }) => {
+  const items = [];
+
+  // Transformando os valores para a formatação correta para a transação
+  const setItems = (item) => {
+    const id = String(item.id);
+    const quantity = item.quantity===undefined ? 0 : parseFloat(item.quantity);
+    const unit_price = Number(item.price.replace(/[R$,\./]/g,''));
+    const title = item.name;
+    const tangible = true;
+
+    if(quantity>0){
+      items.push({id, title, unit_price, quantity, tangible});
+    }
+  }
 
   // Para calcular o valor total de todos os produtos selecionados
   const getAllProductsTotalPrice = () => {
-    let calculatedPrice
+    let calculatedPrice;
+
     if (products) {
       const sumPrice = products.reduce((sum, record) => {
         if (record.quantity && parseInt(record.quantity) > 0) {
@@ -34,16 +49,24 @@ const Summary = ({ products }) => {
                 <Column md={8}>Produto</Column>
                 <Column md={4} className='alinhar-direita'>Subtotal</Column>
               </Row>
-              {products && products.map((item, index) => {
-                const { name, quantity, price, selected, totalPrice } = item
-                return (selected && quantity > 0) ?
-                  <HighlightedRow data-testid={`${name}_selected`} key={index}>
-                    <Column md={8}>{name} {quantity}X{price}</Column>
-                    <Column md={4} className='alinhar-direita'>{`R$${totalPrice.toFixed(2)}`}</Column>
-                  </HighlightedRow>
-                  : null
+              
+              {
+                
+                products && products.map((item, index) => {
+
+                  const { id, name, quantity, price, selected, totalPrice } = item;
+                  setItems(item);
+
+
+                  return (selected && quantity > 0) ?
+                    <HighlightedRow data-testid={`${name}_selected`} key={index}>
+                      <Column md={8}>{name} {quantity}X{price}</Column>
+                      <Column md={4} className='alinhar-direita'>{`R$${totalPrice.toFixed(2)}`}</Column>
+                    </HighlightedRow>
+                    : null
+                }
+              )
               }
-              )}
             </Column>
           </Row>
           <Row>
@@ -60,7 +83,7 @@ const Summary = ({ products }) => {
       </Grid>
       <Row className='alinhar-centro'>
         <Column className='alinhar-centro' xs={12} md={12}>
-          <Pay amount={getAllProductsTotalPrice()}/> 
+          <Pay amount={getAllProductsTotalPrice()} items={items}/>
         </Column>
       </Row>
 
