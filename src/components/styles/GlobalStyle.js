@@ -42,6 +42,8 @@ const GlobalStyle = createGlobalStyle`
     text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
     margin: 10px;
+    outline:0;
+    min-width: 30%;
   }
   .btn-finalizar:hover {
     background-color:#5cbf2a;

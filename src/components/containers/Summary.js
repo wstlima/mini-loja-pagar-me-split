@@ -1,9 +1,7 @@
 import React from 'react';
 import { Grid, Row, Column } from '../styles/Grid'
 import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
-import ButtonFinalize from './ButtonFinalize'
-import pagarme from 'pagarme'
-import config from '../../config'
+import Pay from './Pay'
 
 const Summary = ({ products }) => {
 
@@ -61,7 +59,7 @@ const Summary = ({ products }) => {
       </Grid>
       <Row className='alinhar-centro'>
         <Column className='alinhar-centro' xs={12} md={12}>
-          <ButtonFinalize/> 
+          <Pay/> 
         </Column>
       </Row>
 

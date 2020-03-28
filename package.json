@@ -2,6 +2,7 @@
   "name": "mini-loja",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "axios": "^0.18.0",
     "pagarme": "^4.7.1",
