@@ -61,7 +61,7 @@ const Summary = ({ products }) => {
       </Grid>
       <Row className='alinhar-centro'>
         <Column className='alinhar-centro' xs={12} md={12}>
-          <ButtonFinalize/>
+          <ButtonFinalize/> 
         </Column>
       </Row>
 
