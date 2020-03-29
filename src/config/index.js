@@ -1,7 +1,7 @@
 
 export default {
-  NAME: '',
-  PAGARME_CODE: '',
+  NAME: 'Well Lima',
+  PAGARME_CODE: '2874778302',
   API_KEY_TEST: '',
   ENCRYPTION_KEY_LIVE: '',
   ENCRYPTION_KEY_TEST: '',

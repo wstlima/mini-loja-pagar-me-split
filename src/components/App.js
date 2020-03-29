@@ -1,13 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Checkout from '../components/containers/Checkout';
+import Home from '../components/containers/Home';
 import GlobalStyle from '../components/styles/GlobalStyle';
-
 const App = () => (
   <BrowserRouter>
     <>
     <Switch>
-      <Route exact path='/' component={Checkout} />
+      <Route exact path='/' component={Home} />
     </Switch>
     <GlobalStyle/>
     </>

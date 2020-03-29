@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import config from '../../config';
 import pagarme from 'pagarme';
 
 // Componente funcional
-export default function Pay({ amount, items }) {
+export const PayMiddleware = ({ amount, items }) => {
 
     const [buttonText, setButtonText] = useState("CONCLUIR COMPRA");
     const [cardHash, setCardHash] = useState("");
@@ -16,6 +17,7 @@ export default function Pay({ amount, items }) {
         if (buttonText === 'PROCESSAR') {
             console.log(setDataTransaction());
             //pagarmeConnect();
+            sendTransaction();
             setButtonText("PROCESSANDO...");
         }
 
@@ -28,7 +30,7 @@ export default function Pay({ amount, items }) {
     function setDataTransaction() {
         return {
             "api_key": config.API_KEY_TEST,
-            "amount": Number(amount.replace(/[R$,\./]/g,'')),
+            "amount": Number(amount.replace(/[R$,\./]/g, '')),
             "card_number": config.CARD_NUMBER,
             "card_cvv": config.CARD_CVV,
             "card_expiration_date": config.CARD_EXPIRATION_DATE,
@@ -92,8 +94,39 @@ export default function Pay({ amount, items }) {
         }
     }
 
+    function setDataTransaction2() {
+        return {
+            "amount": 2100,
+            "api_key": config.API_KEY_TEST,
+            "payment_method": "boleto",
+            "customer": {
+                "type": "individual",
+                "country": "br",
+                "name": "Daenerys Targaryen",
+                "documents": [{
+                    "type": "cpf",
+                    "number": "00000000000"
+                }]
+            }
+        }
+    }
+
+    function sendTransaction() {
+
+        try {
+            const posted_data = setDataTransaction();
+            const response = axios.post('https://api.pagar.me/1/transactions', posted_data)
+                .then(resp => {
+                    console.log('👉 Returned data:', response);
+                })
+
+        } catch (e) {
+            console.log(`😱 Axios request failed: ${e}`);
+        }
+    }
+
     function pagarmeConnect() {
-        
+
         pagarme.client.connect({ encryption_key: config.ENCRYPTION_KEY_TEST })
             .then(client => client.security.encrypt(config.CARD_NUMBER))
             .then(card_hash => {
@@ -110,10 +143,20 @@ export default function Pay({ amount, items }) {
         setButtonDisabled(amount === "0.00" ? true : false);
     }
 
-    return <button
-        disabled={buttonDisabled || buttonText === 'COMPRA CONCLUÍDA' ? true : false}
-        type="button"
+    return <input disabled={buttonDisabled || buttonText === 'COMPRA CONCLUÍDA' ? true : false}
+        onClick={handleClick}
         className={`${buttonDisabled ? "btn-invisible" : "btn-finalizar alinhar-centro"}`}
-        onClick={handleClick}>{buttonText}
-    </button>;
+        type="button" value={buttonText}
+    />
 }
+
+export const ButtonCheckout = () => {
+    function handleClick() {
+        return '';
+    }
+    return <button
+        type="button"
+        className='btn-finalizar alinhar-centro'
+        onClick={handleClick}>
+    </button>;
+};

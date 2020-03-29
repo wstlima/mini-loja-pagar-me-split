@@ -21,16 +21,23 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  .col-form-label {
+    font-size: 14px !important;
+  }
+
   .alinhar-direita {
     text-align: right !important;
   }
-
+  
+  .linha-cart {
+    padding-top: 10px;
+  }
   .alinhar-centro {
     text-align: center !important;
   }
 
   .btn-invisible{
-    display:none;
+    display:none !important;
   }
   
   .btn-finalizar {
@@ -47,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
     text-shadow:0px 1px 0px #2f6627;
     margin: 10px;
     outline:0;
-    min-width: 30%;
+    width: 100%;
   }
   .btn-finalizar:hover {
     background-color:#5cbf2a;
@@ -56,6 +63,14 @@ const GlobalStyle = createGlobalStyle`
     position:relative;
     top:1px;
   }
+
+  .hide-comp {
+    display:none;
+  }
+
+  
+}
+
   
 `;
 

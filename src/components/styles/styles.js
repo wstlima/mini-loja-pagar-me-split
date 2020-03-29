@@ -3,8 +3,8 @@ import { Column } from "./Grid";
 
 export const Wrapper = styled.div`
     margin: 1em auto;
-    padding: 20px;
-    width: 80%;
+    padding: 0px;
+    width: 100%;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
@@ -60,15 +60,15 @@ export const InputCheckboxGroup = styled.div`
     
 
   &:before {
-      width: 10px;
+      width: 100%;
       height: 10px;
-      border-radius: 50%;
+      border-radius: 0%;
       content: '';
       background-color: #42A5F5;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) scale3d(1, 1, 1);
+      left: 0%;
+      top: 0%;
+      transform: translate(-50%, -5%) scale3d(1, 1, 1);
       transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
       opacity: 0;
       z-index: -1;
@@ -210,14 +210,19 @@ export const BorderColumn = styled(Column)`
 
 export const ContentBlock = styled.div`
     background: #e6f2ff;
-    padding: 10px 0px;
+    padding: 0px 0px;
+    font-size: 15px;
+`
+
+export const ContentBlockForm = styled.div`
+    padding: 0px 0px 0px 20px;
     font-size: 15px;
 `
 
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 0px 0;
   font-size: 15px;
   font-family: Roboto,Arial,sans-serif;
   color: #212121;
