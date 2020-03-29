@@ -1,20 +1,20 @@
 import React from "react";
 import { Wrapper, SectionHeader, ContentBlockForm } from '../styles/styles';
 import { Grid, Row } from '../styles/Grid'
-import FormEndCart from './FormEndCart';
+import FormEndCreditCart from './FormEndCreditCart';
 
 const Checkout = ({ isVisible }) => {
   if (!isVisible) {
     return null;
   } else {
     return (
-      <Wrapper>
+      <Wrapper className="component-margin">
         <Grid>
-          <Row>
-            <SectionHeader>DADOS DO ENDEREÇO E CARTÃO</SectionHeader>
+          <Row className="alinhar-centro">
+            <SectionHeader className="titulo-wrapper">DADOS DO ENDEREÇO E CARTÃO DE CRÉDITO</SectionHeader>
           </Row>
           <ContentBlockForm>
-            <FormEndCart />
+            <FormEndCreditCart />
           </ContentBlockForm>
         </Grid>
       </Wrapper>

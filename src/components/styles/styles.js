@@ -3,8 +3,8 @@ import { Column } from "./Grid";
 
 export const Wrapper = styled.div`
     margin: 1em auto;
-    padding: 0px;
-    width: 100%;
+    padding: 0px 20px;
+    width: 90%;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
@@ -121,7 +121,6 @@ export const InputCheckboxGroup = styled.div`
   }
   
 `
-
 export const InputBlock = styled.div`
   display: block;
   margin: 10px 0;
@@ -135,7 +134,6 @@ export const InputBlock = styled.div`
     text-align: center;
   }
 `
-
 export const HeadBanner = styled.div`
     background-color: #2874f0;
     color: #fff;
@@ -148,7 +146,6 @@ export const HeadBanner = styled.div`
       text-align: center;
     }
 `
-
 export const HighlightedRow = styled.div`
     clear: both;
     display: flex;
@@ -158,7 +155,6 @@ export const HighlightedRow = styled.div`
     font-style: italic;
     font-size: 15px;
 `
-
 export const ServiceMessage = styled.h1`
     text-align: center;
     padding: 30px;
@@ -171,9 +167,7 @@ export const ServiceMessage = styled.h1`
       color: #fff;
     `}
 `
-
 export const Spinner = styled.div`
-  
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -203,7 +197,6 @@ export const Spinner = styled.div`
   }
 
 `
-
 export const BorderColumn = styled(Column)`
   border-left: solid 1px #cdcdcd;
 `
@@ -213,12 +206,10 @@ export const ContentBlock = styled.div`
     padding: 0px 0px;
     font-size: 15px;
 `
-
 export const ContentBlockForm = styled.div`
     padding: 0px 0px 0px 20px;
     font-size: 15px;
 `
-
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
@@ -261,7 +252,6 @@ ${({ error }) => error && css `
 `}
 
 `
-
 export const AlignRight = styled.div`
   text-align: right !important;
 `

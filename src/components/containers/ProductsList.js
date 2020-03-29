@@ -7,10 +7,10 @@ const ProductsList = ({ products, selectionCallback, updateQuantityCallback, isV
     return null;
   } else {
     return (
-      <Wrapper>
+      <Wrapper className="component-margin">
         <Grid data-testid='productLists'>
-          <Row>
-            <SectionHeader>PRODUTOS:</SectionHeader>
+          <Row className="alinhar-centro">
+            <SectionHeader className="titulo-wrapper">PRODUTOS</SectionHeader>
           </Row>
           {products && products.length > 0 && products.map((item, index) =>
             <Row key={index}>

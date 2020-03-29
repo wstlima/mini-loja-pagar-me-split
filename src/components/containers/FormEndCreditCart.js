@@ -3,9 +3,9 @@ import { Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import SelectCountry from './SelectCountry';
 import SelectState from './SelectState';
 
-const FormEndCart = () => {
+const FormEndCreditCart = () => {
     return (
-        <Form>
+        <Form  className="component-margin">
             <FormGroup row>
                 <Label for="name" sm={2}>Nome</Label>
                 <Col sm={10}>
@@ -53,7 +53,7 @@ const FormEndCart = () => {
                     <Input type="number" name="street_number" id="street_number" placeholder="Nº" required />
                 </Col>
                 <Col sm={2}>
-                    <Input type="number" name="zipcode" id="zipcode" placeholder="seu o CEP" required />
+                    <Input type="number" name="zipcode" id="zipcode" placeholder="CEP" required />
                 </Col>
             </FormGroup>
 
@@ -63,7 +63,7 @@ const FormEndCart = () => {
                     <Input type="text" name="card_holder_name" id="card_holder_name" placeholder="Nome no cartão" required />
                 </Col>
                 <Col sm={2}>
-                    <Input type="number" name="card_number" id="card_number" placeholder="Nº do Cartão" required />
+                    <Input type="number" name="card_number" id="card_number" placeholder="Nº" required />
                 </Col>
                 <Col sm={2}>
                     <Input type="number" name="card_cvv" id="card_cvv" placeholder="CVV" required />
@@ -82,4 +82,4 @@ const FormEndCart = () => {
     );
 }
 
-export default FormEndCart;
+export default FormEndCreditCart;

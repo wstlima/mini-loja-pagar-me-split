@@ -25,6 +25,15 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px !important;
   }
 
+  .carrinho {
+    width: 120px;
+    margin: 3px 0px 3px 0px !important;
+  }
+
+  .component-margin {
+    margin: 50px auto 150px auto !important;
+  }
+
   .alinhar-direita {
     text-align: right !important;
   }
@@ -34,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
   }
   .alinhar-centro {
     text-align: center !important;
+  }
+
+  .titulo-wrapper {
+    width: 100% !important;
   }
 
   .btn-invisible{
@@ -69,6 +82,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
 }
 
   

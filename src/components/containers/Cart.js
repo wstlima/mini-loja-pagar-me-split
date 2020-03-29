@@ -41,10 +41,10 @@ const Cart = ({ products, selectionCallback, isVisible }) => {
     return null
   } else {
     return (
-      <Wrapper >
+      <Wrapper className="component-margin">
         <Grid>
-          <Row>
-            <SectionHeader>SEU CARRINHO</SectionHeader>
+          <Row className="alinhar-centro">
+            <SectionHeader className="titulo-wrapper">SEU CARRINHO</SectionHeader>
           </Row>
           <ContentBlock>
             <Row>
@@ -58,13 +58,14 @@ const Cart = ({ products, selectionCallback, isVisible }) => {
                     const { id, name, quantity, price, selected, totalPrice } = item;
                     setItems(item);
                     return (selected && quantity > 0) ?
-                      <HighlightedRow data-testid={`${name}_selected`} key={index}>
+                      <HighlightedRow data-testid={`${name}_selected`} key={index + id}>
                         <Column md={8}>{name} {quantity}X{price}</Column>
                         <Column md={4} className='alinhar-direita'>{`R$${totalPrice.toFixed(2)}`}</Column>
                       </HighlightedRow>
                       : null
                   })
                 }
+                {items.length === 0 ? <Column className="alinhar-centro" md={12}>Carrinho vazio! Adicione um produto.</Column> : null}
               </Column>
             </Row>
             <Row>
@@ -82,7 +83,7 @@ const Cart = ({ products, selectionCallback, isVisible }) => {
         <Row className='alinhar-centro'>
           <Column className='alinhar-centro' xs={12} md={12}>
             <input
-              className="btn-finalizar alinhar-centro"
+              className={`${items.length === 0 ? "btn-invisible" : "btn-finalizar alinhar-centro"}`}
               onClick={handleClickCart}
               type="button"
               value="FECHAR PEDIDO"

@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Form, HeadBanner, ServiceMessage, Spinner } from '../styles/styles';
+import Button from 'react-bootstrap/Button';
 import ProductsList from '../containers/ProductsList';
 import Cart from '../containers/Cart';
-import Checkout from './Checkout'
-import Summary from './Summary'
+import Checkout from './Checkout';
+import Summary from './Summary';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Home = props => {
   const [products, setProducts] = useState();
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState(false);
   const [showProductList, setShowProductList] = useState(true);
-  const [showCart, setShowCart] = useState(true);
+  const [showCart, setShowCart] = useState(false);
   const [showCheckout, setCheckout] = useState(false);
 
   const fetchData = async () => {
@@ -55,8 +57,22 @@ const Home = props => {
     }, [products]
   );
 
+  const selectionCart = () => {
+    if(showCart){
+      fetchData();
+      setCheckout(false);
+      setShowCart(false);
+      //setShowProductList(true);
+    }else{
+      
+      setCheckout(false);
+      //setShowProductList(false);
+      setShowCart(true);
+    }
+  }
+
   const selectionCartCallback = () => {
-    setShowProductList(false);
+    //setShowProductList(false);
     setShowCart(false);
     setCheckout(true);
   }
@@ -88,27 +104,29 @@ const Home = props => {
 
   return (
     <>
-      <HeadBanner data-testid='headBanner'><h1>MINI LOJA</h1></HeadBanner>
+      <HeadBanner className="sticky alinhar-centro" data-testid='headBanner'>
+        <Button className="carrinho" variant={showCart ? "danger" : "success"} size="sm" onClick={selectionCart}>
+          <FaShoppingCart />{showCart ? " limpar" : " mostrar"}
+        </Button>
+      </HeadBanner>
+
       {error && <ServiceMessage data-testid='errorMessage' type={'error'}>Erro ao carregar o serviço, por favor atualize a página!</ServiceMessage>}
       {fetching ? <Spinner /> :
         <div>
-          
-          <Form>
-            <ProductsList products={products} selectionCallback={selectionCallback} updateQuantityCallback={updateQuantityCallback} isVisible={showProductList} />
-          </Form>
-
           <Form>
             <Cart products={products} selectionCallback={selectionCartCallback} isVisible={showCart} />
           </Form>
 
           <Form>
-            <Checkout selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
+            <ProductsList products={products} selectionCallback={selectionCallback} updateQuantityCallback={updateQuantityCallback} isVisible={showProductList} />
           </Form>
+
+          <Checkout selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
 
           <Form>
             <Summary />
           </Form>
-          
+
         </div>
       }
     </>
