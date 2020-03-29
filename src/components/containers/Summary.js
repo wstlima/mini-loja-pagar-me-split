@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
-import { Grid, Row, Column } from '../styles/Grid'
+import React from "react";
+import { Wrapper, SectionHeader, ContentBlock } from '../styles/styles';
+import { Grid, Row } from '../styles/Grid'
 
 const Summary = ({ isVisible }) => {
   if (!isVisible) {

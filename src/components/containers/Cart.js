@@ -1,28 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Row, Column } from '../styles/Grid'
 import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
-import { PayMiddleware, ButtonCheckout} from './PayMiddleware'
 
-const Cart = ({ products }) => {
+const Cart = ({ products, selectionCallback, isVisible }) => {
   const items = [];
+
+  function handleClickCart() {
+    selectionCallback()
+  }
 
   // Transformando os valores para a formatação correta para a transação
   const setItems = (item) => {
     const id = String(item.id);
     const quantity = item.quantity === undefined ? 0 : parseFloat(item.quantity);
-    const unit_price = Number(item.price.replace(/[R$,\./]/g, ''));
+    const unit_price = Number(item.price.replace(/[R$,./]/g, ''));
     const title = item.name;
     const tangible = true;
 
     if (quantity > 0) {
       items.push({ id, title, unit_price, quantity, tangible });
     }
+
   }
 
   // Para calcular o valor total de todos os produtos selecionados
   const getAllProductsTotalPrice = () => {
     let calculatedPrice;
-
     if (products) {
       const sumPrice = products.reduce((sum, record) => {
         if (record.quantity && parseInt(record.quantity) > 0) {
@@ -34,11 +37,11 @@ const Cart = ({ products }) => {
     }
     return calculatedPrice
   }
-  if (getAllProductsTotalPrice() === '0.00') {
+  if (!isVisible) {
     return null
-  }else{
+  } else {
     return (
-      <Wrapper clas>
+      <Wrapper >
         <Grid>
           <Row>
             <SectionHeader>SEU CARRINHO</SectionHeader>
@@ -78,8 +81,12 @@ const Cart = ({ products }) => {
         </Grid>
         <Row className='alinhar-centro'>
           <Column className='alinhar-centro' xs={12} md={12}>
-            <ButtonCheckout/>
-            <PayMiddleware amount={getAllProductsTotalPrice()} items={items} />
+            <input
+              className="btn-finalizar alinhar-centro"
+              onClick={handleClickCart}
+              type="button"
+              value="FECHAR PEDIDO"
+            />
           </Column>
         </Row>
       </Wrapper>

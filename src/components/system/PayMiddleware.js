@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import config from '../../config';
 import pagarme from 'pagarme';
@@ -6,31 +6,27 @@ import pagarme from 'pagarme';
 // Componente funcional
 export const PayMiddleware = ({ amount, items }) => {
 
-    const [buttonText, setButtonText] = useState("CONCLUIR COMPRA");
+    const [action, setAction] = useState("FECHAR PEDIDO");
     const [cardHash, setCardHash] = useState("");
-    const [buttonDisabled, setButtonDisabled] = useState(true);
+
 
     useEffect(() => {
-        console.log('ITEMS ::', items);
-        isDisabledButton();
-
-        if (buttonText === 'PROCESSAR') {
-            console.log(setDataTransaction());
+        if (action === 'PROCESSAR') {
             //pagarmeConnect();
             sendTransaction();
-            setButtonText("PROCESSANDO...");
+            setAction("PROCESSANDO...");
         }
 
-        if (buttonText === 'PROCESSADO') {
+        if (action === 'PROCESSADO') {
             console.log('cardHash :: ', cardHash);
-            setButtonText("COMPRA CONCLUÍDA");
+            setAction("COMPRA CONCLUÍDA");
         }
     });
 
     function setDataTransaction() {
         return {
             "api_key": config.API_KEY_TEST,
-            "amount": Number(amount.replace(/[R$,\./]/g, '')),
+            "amount": Number(amount.replace(/[R$,./]/g, '')),
             "card_number": config.CARD_NUMBER,
             "card_cvv": config.CARD_CVV,
             "card_expiration_date": config.CARD_EXPIRATION_DATE,
@@ -94,23 +90,6 @@ export const PayMiddleware = ({ amount, items }) => {
         }
     }
 
-    function setDataTransaction2() {
-        return {
-            "amount": 2100,
-            "api_key": config.API_KEY_TEST,
-            "payment_method": "boleto",
-            "customer": {
-                "type": "individual",
-                "country": "br",
-                "name": "Daenerys Targaryen",
-                "documents": [{
-                    "type": "cpf",
-                    "number": "00000000000"
-                }]
-            }
-        }
-    }
-
     function sendTransaction() {
 
         try {
@@ -126,37 +105,22 @@ export const PayMiddleware = ({ amount, items }) => {
     }
 
     function pagarmeConnect() {
-
         pagarme.client.connect({ encryption_key: config.ENCRYPTION_KEY_TEST })
             .then(client => client.security.encrypt(config.CARD_NUMBER))
             .then(card_hash => {
                 setCardHash(card_hash);
-                setButtonText("PROCESSADO");
+                setAction("PROCESSADO");
             });
     }
 
-    function handleClick() {
-        return setButtonText("PROCESSAR");
+    function handleClickCart() {
+        return setAction("REALIZAR PAGAMENTO");
     }
 
-    function isDisabledButton() {
-        setButtonDisabled(amount === "0.00" ? true : false);
+    function handleClickEndCart() {
+        return setAction("PROCESSAR");
     }
 
-    return <input disabled={buttonDisabled || buttonText === 'COMPRA CONCLUÍDA' ? true : false}
-        onClick={handleClick}
-        className={`${buttonDisabled ? "btn-invisible" : "btn-finalizar alinhar-centro"}`}
-        type="button" value={buttonText}
-    />
+    return null;
 }
 
-export const ButtonCheckout = () => {
-    function handleClick() {
-        return '';
-    }
-    return <button
-        type="button"
-        className='btn-finalizar alinhar-centro'
-        onClick={handleClick}>
-    </button>;
-};
