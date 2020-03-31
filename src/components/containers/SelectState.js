@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SelectState = ({ value }) => {
   const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(()=>{
+    if(!selectedOption)
+      setSelectedOption('Rio de Janeiro');
+  });
 
   const options = [
     {"label": "Acre", "value": "AC"},
@@ -34,7 +39,6 @@ const SelectState = ({ value }) => {
     {"label": "São Paulo", "value": "SP"},
     {"label": "Sergipe", "value": "SE"},
     {"label": "Tocantins", "value": "TO"}
-
 ];
 
   const animatedComponents = makeAnimated();

@@ -15,13 +15,14 @@ const Home = props => {
   const [showProductList, setShowProductList] = useState(true);
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setCheckout] = useState(false);
+  const [items, setItems] = useState([]);
 
   const fetchData = async () => {
     try {
       setFetching(true)
       const prodResult = await axios('fixtures/products.json');
       setProducts(prodResult.data);
-
+      setItems([]);
     } catch (err) {
       setError(true);
     }
@@ -33,8 +34,8 @@ const Home = props => {
   };
 
   useEffect(() => {
+    
     fetchData();
-
   }, []);
 
   // Função de callback para atualizar o produto com o sinalizador selecionado ou 
@@ -62,17 +63,16 @@ const Home = props => {
       fetchData();
       setCheckout(false);
       setShowCart(false);
-      //setShowProductList(true);
+      setShowProductList(true);
     }else{
-      
       setCheckout(false);
-      //setShowProductList(false);
+      setShowProductList(false);
       setShowCart(true);
     }
   }
 
   const selectionCartCallback = () => {
-    //setShowProductList(false);
+    setShowProductList(false);
     setShowCart(false);
     setCheckout(true);
   }
@@ -114,14 +114,14 @@ const Home = props => {
       {fetching ? <Spinner /> :
         <div>
           <Form>
-            <Cart products={products} selectionCallback={selectionCartCallback} isVisible={showCart} />
+            <Cart products={products} items={items} selectionCallback={selectionCartCallback} isVisible={showCart} />
           </Form>
 
           <Form>
             <ProductsList products={products} selectionCallback={selectionCallback} updateQuantityCallback={updateQuantityCallback} isVisible={showProductList} />
           </Form>
 
-          <Checkout selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
+          <Checkout  items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
 
           <Form>
             <Summary />

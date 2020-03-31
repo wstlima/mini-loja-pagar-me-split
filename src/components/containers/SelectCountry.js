@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SelectCountry = ({ value }) => {
+  
   const [selectedOption, setSelectedOption] = useState(null);
+  
+  useEffect(()=>{
+    if(!selectedOption)
+      setSelectedOption('BRASIL');
+  });
 
   const options = [
     {

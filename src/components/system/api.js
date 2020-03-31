@@ -1,37 +1,10 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import config from '../../config';
-import pagarme from 'pagarme';
 
-
-// Componente funcional
-
-const PayMiddleware = ({ amount, items, onClickConclusion }) => {
-
-    const [action, setAction] = useState("FECHAR PEDIDO");
-    const [cardHash, setCardHash] = useState("");
-
-    useEffect(() => {
-        if (action === 'PROCESSAR') {
-            //pagarmeConnect();
-            sendTransaction();
-            setAction("PROCESSANDO...");
-        }
-
-        if (action === 'PROCESSADO') {
-            console.log('cardHash :: ', cardHash);
-            setAction("COMPRA CONCLUÍDA");
-        }
-    });
-
-
-    function onClickConclusion (event) {
-        event.preventDefault();
-        console.log('CLICK :: ----');
-    }
-
-    function setDataTransaction() {
-        return {
+const api = {
+    fetchApi: function (items, amount) {
+        console.log('chegou :: ', items);
+        const posted_data = {
             "api_key": config.API_KEY_TEST,
             "amount": Number(amount.replace(/[R$,./]/g, '')),
             "card_number": config.CARD_NUMBER,
@@ -94,41 +67,14 @@ const PayMiddleware = ({ amount, items, onClickConclusion }) => {
                     "charge_processing_fee": true
                 }
             ]
-        }
+        };
+
+        return axios.post('https://api.pagar.me/1/transactions', posted_data)
+            .then(function (response) {
+                console.log('👉 Returned data:', response.data);
+                return response.data;
+            })
     }
-
-    function sendTransaction() {
-        try {
-            const posted_data = setDataTransaction();
-            const response = axios.post('https://api.pagar.me/1/transactions', posted_data)
-                .then(resp => {
-                    console.log('👉 Returned data:', response);
-                })
-
-        } catch (e) {
-            console.log(`😱 Axios request failed: ${e}`);
-        }
-    }
-
-    function pagarmeConnect() {
-        pagarme.client.connect({ encryption_key: config.ENCRYPTION_KEY_TEST })
-            .then(client => client.security.encrypt(config.CARD_NUMBER))
-            .then(card_hash => {
-                setCardHash(card_hash);
-                setAction("PROCESSADO");
-            });
-    }
-
-    function handleClickCart() {
-        return setAction("REALIZAR PAGAMENTO");
-    }
-
-    function handleClickEndCart() {
-        return setAction("PROCESSAR");
-    }
-
-    return null;
 }
 
-export default PayMiddleware;
-
+export default api;

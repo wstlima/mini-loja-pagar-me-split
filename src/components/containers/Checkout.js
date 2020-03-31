@@ -1,9 +1,9 @@
 import React from "react";
 import { Wrapper, SectionHeader, ContentBlockForm } from '../styles/styles';
 import { Grid, Row } from '../styles/Grid'
-import FormEndCreditCart from './FormEndCreditCart';
+import AddressCreditCart from './AddressCreditCart';
 
-const Checkout = ({ isVisible }) => {
+const Checkout = ({ isVisible, items }) => {
   if (!isVisible) {
     return null;
   } else {
@@ -14,7 +14,7 @@ const Checkout = ({ isVisible }) => {
             <SectionHeader className="titulo-wrapper">DADOS DO ENDEREÇO E CARTÃO DE CRÉDITO</SectionHeader>
           </Row>
           <ContentBlockForm>
-            <FormEndCreditCart />
+            <AddressCreditCart items={items}/>
           </ContentBlockForm>
         </Grid>
       </Wrapper>
