@@ -30,9 +30,9 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
     const subtotal = Number(item.price.replace(/[R$]/g, ''))*quantity;
     const title = item.name;
     const tangible = true;
-    if (itemsFiltered(item).length === 0) {
+    //if (itemsFiltered(item).length === 0) {
       items.push({ id, title, unit_price, subtotal, quantity, tangible });
-    }
+    //}
   }
 
   // Para calcular o valor total de todos os produtos selecionados
