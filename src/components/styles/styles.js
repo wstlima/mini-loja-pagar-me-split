@@ -58,7 +58,6 @@ export const InputCheckboxGroup = styled.div`
     transition: color 200ms ease-in;
     overflow: hidden;
     
-
   &:before {
       width: 100%;
       height: 10px;
@@ -162,7 +161,7 @@ export const ServiceMessage = styled.h1`
       background-color : #b00020;
       color: #fff;
     `}
-    ${({type}) => type === 'fetching' && css`
+    ${({ type }) => type === 'fetching' && css`
       background-color : #BBDEFB;
       color: #fff;
     `}
@@ -245,7 +244,7 @@ ${({ title }) => title && css`
   border-bottom: solid 1px #cdcdcd;
 `}
 
-${({ error }) => error && css `
+${({ error }) => error && css`
   font-weight: 100;
   font-size: 16px;
   color: red;

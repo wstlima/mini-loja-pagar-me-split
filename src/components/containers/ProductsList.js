@@ -33,4 +33,4 @@ const ProductsList = ({ products, selectionCallback, updateQuantityCallback, isV
   }
 }
 
-export default ProductsList
+export default ProductsList;

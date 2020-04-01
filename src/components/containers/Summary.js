@@ -20,4 +20,4 @@ const Summary = ({ isVisible }) => {
   }
 }
 
-export default Summary
+export default Summary;

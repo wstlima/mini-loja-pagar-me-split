@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const derivedWidth = (unit) => {
-  if(!unit) return;
+  if (!unit) return;
   const width = unit / 12 * 100;
   return `width : ${width}%;`;
 }

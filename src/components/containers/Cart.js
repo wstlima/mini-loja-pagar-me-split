@@ -5,20 +5,10 @@ import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } f
 const Cart = ({ products, selectionCallback, isVisible, items }) => {
 
   useEffect(() => {
-    console.log('CART ITENS :: ', items);
   }, []);
 
   function handleClickCart() {
     selectionCallback()
-  }
-
-  function itemsFiltered(item) {
-
-    return items.filter((item) => {
-      return (
-        item
-      );
-    });
   }
 
   // Transformando os valores para a formatação correta para a transação
@@ -27,12 +17,10 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
     const id = String(item.id);
     const quantity = item.quantity === undefined ? 0 : parseFloat(item.quantity);
     const unit_price = Number(item.price.replace(/[R$,./]/g, ''));
-    const subtotal = Number(item.price.replace(/[R$]/g, ''))*quantity;
+    const subtotal = (Number(item.price.replace(/[R$]/g, '')) * quantity).toFixed(2);
     const title = item.name;
     const tangible = true;
-    //if (itemsFiltered(item).length === 0) {
-      items.push({ id, title, unit_price, subtotal, quantity, tangible });
-    //}
+    items.push({ id, title, unit_price, subtotal, quantity, tangible });
   }
 
   // Para calcular o valor total de todos os produtos selecionados
@@ -68,10 +56,10 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
                 {
                   products && products.map((item, index) => {
                     const { id, name, quantity, price, selected, totalPrice } = item;
-                    if((selected && quantity > 0) ){
+                    if ((selected && quantity > 0)) {
                       pushItems(item);
                     }
-                    
+
                     return (selected && quantity > 0) ?
                       <HighlightedRow data-testid={`${name}_selected`} key={index + id}>
                         <Column md={8}>{name} {quantity}X{price}</Column>
@@ -110,7 +98,4 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
   }
 }
 
-
-
-
-export default Cart
+export default Cart;

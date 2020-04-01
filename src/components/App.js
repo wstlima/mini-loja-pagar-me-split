@@ -5,10 +5,10 @@ import GlobalStyle from '../components/styles/GlobalStyle';
 const App = () => (
   <BrowserRouter>
     <>
-    <Switch>
-      <Route exact path='/' component={Home} />
-    </Switch>
-    <GlobalStyle/>
+      <Switch>
+        <Route exact path='/' component={Home} />
+      </Switch>
+      <GlobalStyle />
     </>
   </BrowserRouter>
 )

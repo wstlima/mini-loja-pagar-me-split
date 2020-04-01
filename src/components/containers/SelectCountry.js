@@ -4,11 +4,11 @@ import makeAnimated from 'react-select/animated';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SelectCountry = ({ value }) => {
-  
+
   const [selectedOption, setSelectedOption] = useState(null);
-  
-  useEffect(()=>{
-    if(!selectedOption)
+
+  useEffect(() => {
+    if (!selectedOption)
       setSelectedOption('BRASIL');
   });
 
@@ -1572,4 +1572,4 @@ const SelectCountry = ({ value }) => {
   )
 }
 
-export default SelectCountry
+export default SelectCountry;

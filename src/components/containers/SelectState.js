@@ -62,4 +62,4 @@ const SelectState = ({ value }) => {
   )
 }
 
-export default SelectState
+export default SelectState;

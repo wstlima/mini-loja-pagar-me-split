@@ -14,7 +14,7 @@ const Checkout = ({ isVisible, items }) => {
             <SectionHeader className="titulo-wrapper">DADOS DO ENDEREÇO E CARTÃO DE CRÉDITO</SectionHeader>
           </Row>
           <ContentBlockForm>
-            <AddressCreditCart items={items}/>
+            <AddressCreditCart items={items} />
           </ContentBlockForm>
         </Grid>
       </Wrapper>
@@ -22,4 +22,4 @@ const Checkout = ({ isVisible, items }) => {
   }
 }
 
-export default Checkout
+export default Checkout;

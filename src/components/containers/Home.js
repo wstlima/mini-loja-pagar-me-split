@@ -34,7 +34,7 @@ const Home = props => {
   };
 
   useEffect(() => {
-    
+
     fetchData();
   }, []);
 
@@ -59,12 +59,12 @@ const Home = props => {
   );
 
   const selectionCart = () => {
-    if(showCart){
+    if (showCart) {
       fetchData();
       setCheckout(false);
       setShowCart(false);
       setShowProductList(true);
-    }else{
+    } else {
       setCheckout(false);
       setShowProductList(false);
       setShowCart(true);
@@ -121,7 +121,7 @@ const Home = props => {
             <ProductsList products={products} selectionCallback={selectionCallback} updateQuantityCallback={updateQuantityCallback} isVisible={showProductList} />
           </Form>
 
-          <Checkout  items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
+          <Checkout items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
 
           <Form>
             <Summary />

@@ -1,31 +1,38 @@
 import React from 'react';
-import { useState, useEffect } from "react";
 import { Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import SelectCountry from './SelectCountry';
 import SelectState from './SelectState';
-import { PayMiddleware } from '../system/PayMiddleware';
 import config from './../../config'
 import api from '../system/api';
 
-const AddressCreditCart = ({items}) => {
+const AddressCreditCart = ({ items }) => {
 
-    useEffect(() => {
-       console.log('Items :: ', items);
-    });
+    function calcAmount() {
+        let amount = 0;
+        items.map(function (item) {
+            amount = amount + item.subtotal;
+        });
+        return amount;
+    }
 
-    function onClickConclusion (event) {
+    function onClickConclusion(event) {
         event.preventDefault();
-        api.fetchApi("items", "10")
+        const amount = Number(calcAmount().replace(/[./]/g, ''));
+
+        let listItem = items.map(function (item) {
+            delete item.subtotal;
+            return item;
+        });
+
+        api.fetchApi(listItem, amount)
             .then(data => {
                 console.log(data);
-                //this.setState({ rows: data.rows, columns: data.columns })
             })
             .then(async () => {
                 //this.setState({ tableRows: this.assemblePosts(), isLoading: false })
             });
-        console.log('CLICK ADDRESS :: ----');
     }
-      
+
     return (
         <Form className="component-margin" >
             <FormGroup row>
@@ -45,7 +52,7 @@ const AddressCreditCart = ({items}) => {
             <FormGroup row>
                 <Label for="country" sm={2}>País</Label>
                 <Col sm={10}>
-                    <SelectCountry value={config.ADDRESS_COUNTRY}/>
+                    <SelectCountry value={config.ADDRESS_COUNTRY} />
                 </Col>
             </FormGroup>
 
@@ -97,9 +104,9 @@ const AddressCreditCart = ({items}) => {
 
             <FormGroup >
                 <Col sm={12}>
-                    <input className="btn-finalizar alinhar-centro" 
-                        type="submit" 
-                        value="CONCLUIR COMPRA" 
+                    <input className="btn-finalizar alinhar-centro"
+                        type="submit"
+                        value="CONCLUIR COMPRA"
                         onClick={onClickConclusion}
                     />
                 </Col>
