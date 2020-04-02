@@ -56,7 +56,7 @@ const Cart = ({ products, selectionCallback, updateQuantityCallback, isVisible, 
                     if ((selected && quantity > 0)) {
                       pushItems(item);
                     }
-                    console.log('item :: ', item);
+                    //console.log('item :: ', item);
                     return (selected && quantity > 0) ?
                       <HighlightedRow data-testid={`${name}_selected`} key={index + id}>
                         <Column md={6}>{name} {quantity}X{price}</Column>

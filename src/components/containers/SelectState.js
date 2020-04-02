@@ -3,12 +3,13 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const SelectState = ({ value }) => {
+const SelectState = ({ value, selectionCallbacks }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(()=>{
-    if(!selectedOption)
+    if(!value){
       setSelectedOption('Rio de Janeiro');
+    }
   });
 
   const options = [
@@ -45,7 +46,7 @@ const SelectState = ({ value }) => {
 
   function handleChange(selectedOption) {
     setSelectedOption(selectedOption.label);
-    console.log(`Option selected:`, selectedOption);
+    selectionCallbacks(selectedOption)
   };
 
   return (

@@ -7,7 +7,7 @@ const Summary = ({ isVisible, transactionData }) => {
     return null;
   } else {
     if (transactionData.sucess) {
-      const { status, message, tid, amount, items, recipients } = transactionData;
+      const { tid, amount, items, recipients } = transactionData;
       let total = 0;
       return (
         <Wrapper className="component-margin">

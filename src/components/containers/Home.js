@@ -19,12 +19,10 @@ const Home = props => {
   const [items, setItems] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
   
-  
-
   const fetchData = async () => {
     try {
       setFetching(true)
-      setShowCart(true);
+      setShowCart(false);
       const prodResult = await axios('fixtures/products.json');
       setProducts(prodResult.data);
       setItems([]);
@@ -39,7 +37,6 @@ const Home = props => {
   };
 
   useEffect(() => {
-      console.log('products :: ', products);
     fetchData();
   }, []);
 
@@ -47,7 +44,6 @@ const Home = props => {
   // redefinir a seleção juntamente com a quantidade e o preço total se desmarcada
   const selectionCallback = useCallback(
     (index) => {
-      console.log('produto selecionado :: ');
       const updatedProducts =
         products.map((item, itemIndex) => {
           if (itemIndex === index) {
@@ -64,7 +60,6 @@ const Home = props => {
     }, [products]
   );
 
-  let data = [];
   const selectionCallbackSummary = useCallback((transaction) => {
     console.log('call back :: ', transaction);
     setTransactionData(transaction);
