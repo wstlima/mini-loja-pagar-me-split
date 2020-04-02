@@ -15,11 +15,16 @@ const Home = props => {
   const [showProductList, setShowProductList] = useState(true);
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setCheckout] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
   const [items, setItems] = useState([]);
+  const [transactionData, setTransactionData] = useState([]);
+  
+  
 
   const fetchData = async () => {
     try {
       setFetching(true)
+      setShowCart(true);
       const prodResult = await axios('fixtures/products.json');
       setProducts(prodResult.data);
       setItems([]);
@@ -34,7 +39,7 @@ const Home = props => {
   };
 
   useEffect(() => {
-
+      console.log('products :: ', products);
     fetchData();
   }, []);
 
@@ -42,6 +47,7 @@ const Home = props => {
   // redefinir a seleção juntamente com a quantidade e o preço total se desmarcada
   const selectionCallback = useCallback(
     (index) => {
+      console.log('produto selecionado :: ');
       const updatedProducts =
         products.map((item, itemIndex) => {
           if (itemIndex === index) {
@@ -57,6 +63,17 @@ const Home = props => {
       setProducts(updatedProducts)
     }, [products]
   );
+
+  let data = [];
+  const selectionCallbackSummary = useCallback((transaction) => {
+    console.log('call back :: ', transaction);
+    setTransactionData(transaction);
+    setCheckout(false);
+    setShowCart(false);
+    setShowProductList(false);
+    setShowSummary(true);
+  });
+
 
   const selectionCart = () => {
     if (showCart) {
@@ -114,17 +131,17 @@ const Home = props => {
       {fetching ? <Spinner /> :
         <div>
           <Form>
-            <Cart products={products} items={items} selectionCallback={selectionCartCallback} isVisible={showCart} />
+            <Cart products={products} items={items} updateQuantityCallback={updateQuantityCallback}  selectionCallback={selectionCartCallback} isVisible={showCart} />
           </Form>
 
           <Form>
             <ProductsList products={products} selectionCallback={selectionCallback} updateQuantityCallback={updateQuantityCallback} isVisible={showProductList} />
           </Form>
 
-          <Checkout items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
+          <Checkout selectionCallbacks={selectionCallbackSummary} items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
 
           <Form>
-            <Summary />
+            <Summary isVisible={showSummary} transactionData={transactionData}/>
           </Form>
 
         </div>

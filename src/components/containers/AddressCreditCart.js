@@ -4,8 +4,9 @@ import SelectCountry from './SelectCountry';
 import SelectState from './SelectState';
 import config from './../../config'
 import api from '../system/api';
+import PropTypes from 'prop-types';
 
-const AddressCreditCart = ({ items }) => {
+const AddressCreditCart = ({ items, selectionCallbacks }) => {
 
     function calcAmount() {
         let amount = 0;
@@ -13,6 +14,10 @@ const AddressCreditCart = ({ items }) => {
             amount = amount + item.subtotal;
         });
         return amount;
+    }
+
+    function showSummary(data){
+        selectionCallbacks(data);
     }
 
     function onClickConclusion(event) {
@@ -26,10 +31,8 @@ const AddressCreditCart = ({ items }) => {
 
         api.fetchApi(listItem, amount)
             .then(data => {
-                console.log(data);
-            })
-            .then(async () => {
-                //this.setState({ tableRows: this.assemblePosts(), isLoading: false })
+                //console.log(data);
+                showSummary(data);
             });
     }
 
@@ -114,5 +117,10 @@ const AddressCreditCart = ({ items }) => {
         </Form>
     );
 }
+
+AddressCreditCart.propTypes = {
+    items: PropTypes.array.isRequired,
+}
+
 
 export default AddressCreditCart;

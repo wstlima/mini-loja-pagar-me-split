@@ -3,7 +3,7 @@ import { Wrapper, SectionHeader, ContentBlockForm } from '../styles/styles';
 import { Grid, Row } from '../styles/Grid'
 import AddressCreditCart from './AddressCreditCart';
 
-const Checkout = ({ isVisible, items }) => {
+const Checkout = ({ isVisible, items, selectionCallbacks }) => {
   if (!isVisible) {
     return null;
   } else {
@@ -14,7 +14,7 @@ const Checkout = ({ isVisible, items }) => {
             <SectionHeader className="titulo-wrapper">DADOS DO ENDEREÇO E CARTÃO DE CRÉDITO</SectionHeader>
           </Row>
           <ContentBlockForm>
-            <AddressCreditCart items={items} />
+            <AddressCreditCart items={items} selectionCallbacks={selectionCallbacks}/>
           </ContentBlockForm>
         </Grid>
       </Wrapper>

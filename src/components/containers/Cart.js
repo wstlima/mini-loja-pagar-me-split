@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Grid, Row, Column } from '../styles/Grid'
-import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span } from '../styles/styles';
+import { Wrapper, SectionHeader, HighlightedRow, ContentBlock, Content, Span, QuantityInputBlock } from '../styles/styles';
 
-const Cart = ({ products, selectionCallback, isVisible, items }) => {
-
-  useEffect(() => {
-  }, []);
+const Cart = ({ products, selectionCallback, updateQuantityCallback, isVisible, items }) => {
 
   function handleClickCart() {
     selectionCallback()
@@ -13,7 +10,6 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
 
   // Transformando os valores para a formatação correta para a transação
   const pushItems = (item) => {
-    console.log('pushItems :: ', items);
     const id = String(item.id);
     const quantity = item.quantity === undefined ? 0 : parseFloat(item.quantity);
     const unit_price = Number(item.price.replace(/[R$,./]/g, ''));
@@ -50,7 +46,8 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
             <Row>
               <Column className='productsSelected' xs={12} md={12}>
                 <Row className='linha-cart'>
-                  <Column md={8}>Produto</Column>
+                  <Column md={6}>Produto</Column>
+                  <Column md={2}></Column>
                   <Column md={4} className='alinhar-direita'>Subtotal</Column>
                 </Row>
                 {
@@ -59,10 +56,23 @@ const Cart = ({ products, selectionCallback, isVisible, items }) => {
                     if ((selected && quantity > 0)) {
                       pushItems(item);
                     }
-
+                    console.log('item :: ', item);
                     return (selected && quantity > 0) ?
                       <HighlightedRow data-testid={`${name}_selected`} key={index + id}>
-                        <Column md={8}>{name} {quantity}X{price}</Column>
+                        <Column md={6}>{name} {quantity}X{price}</Column>
+                        <Column md={2}>
+                          <QuantityInputBlock className='quantity'>
+                            <input
+                              type="number"
+                              min='0'
+                              value={quantity}
+                              data-testid={`${item.name}_quantity`}
+                              placeholder='quantidade'
+                              name="quantity"
+                              onChange={(e) => updateQuantityCallback(e, index)}
+                            />
+                          </QuantityInputBlock>
+                        </Column>
                         <Column md={4} className='alinhar-direita'>{`R$${totalPrice.toFixed(2)}`}</Column>
                       </HighlightedRow>
                       : null

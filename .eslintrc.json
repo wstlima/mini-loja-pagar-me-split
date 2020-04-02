@@ -1,0 +1,25 @@
+//.eslintrc.json na pasta raíz do seu projeto com ESLint 2.x.x
+{
+    "extends": [
+    "eslint:recommended",
+    // opcional, se você estiver usando React
+    "plugin:react/recommended"
+    ],
+    "env": {
+    "es6": true,
+    // seu ambiente, node e/ou navegador:
+    "node": true,
+    "browser": true
+    },
+    "plugins": ["react"], // opcional, se você estiver usando React
+    "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+    "jsx": true // se estiver usando JSX
+    }
+    },
+    "rules": {
+    // outras regras específicas para seu projeto/equipe
+    }
+   }

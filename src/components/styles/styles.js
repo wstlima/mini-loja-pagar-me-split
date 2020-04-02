@@ -133,6 +133,20 @@ export const InputBlock = styled.div`
     text-align: center;
   }
 `
+
+export const QuantityInputBlock = styled.div`
+  display: block;
+  margin: 1px 0;
+  position: relative;
+  
+  input {
+    width: 100%;
+    padding: 3px 1px;
+    font-size: 15px;
+    color: #3C454C;
+    text-align: center;
+  }
+`
 export const HeadBanner = styled.div`
     background-color: #2874f0;
     color: #fff;
