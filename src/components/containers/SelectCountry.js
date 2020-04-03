@@ -1576,7 +1576,7 @@ const SelectCountry = ({ value, selectionCallbacks }) => {
 
 // Validação dos tipos das props
 SelectCountry.propTypes = {
-  value: PropTypes.array.isRequired,
+  value: PropTypes.string.isRequired,
   selectionCallbacks: PropTypes.func.isRequired
 }
 

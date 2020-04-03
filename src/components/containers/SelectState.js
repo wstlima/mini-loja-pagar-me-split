@@ -66,7 +66,7 @@ const SelectState = ({ value, selectionCallbacks }) => {
 
 // Validação dos tipos das props
 SelectState.propTypes = {
-  value: PropTypes.array.isRequired,
+  value: PropTypes.string.isRequired,
   selectionCallbacks: PropTypes.func.isRequired
 }
 
