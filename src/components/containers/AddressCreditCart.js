@@ -4,6 +4,7 @@ import SelectCountry from './SelectCountry';
 import SelectState from './SelectState';
 import config from './../../config'
 import api from '../system/api';
+import utils from '../system/utils';
 import PropTypes from 'prop-types';
 
 const AddressCreditCart = ({ items, selectionCallbacks }) => {
@@ -23,11 +24,12 @@ const AddressCreditCart = ({ items, selectionCallbacks }) => {
 
     useEffect(() => {
         setListData();
-        console.log('listData :: ', listData);
     });
 
     let listData = [];
 
+    // Função chamada na mudança de estado para preechimento do array que será usado
+    // na requisição de post para criação da transação na API do pagar.me
     function setListData() {
         listData.name = name;
         listData.email = email;
@@ -44,40 +46,31 @@ const AddressCreditCart = ({ items, selectionCallbacks }) => {
         listData.cardExpirationDate = cardExpirationDate;
     }
 
+    // Função de callback do select de seleção do estado
     const selectionCallbackState = useCallback((dataSelected) => {
         setState(dataSelected.value);
     });
 
+    // Função de callback do select de seleção de país
     const selectionCallbackCountry = useCallback((dataSelected) => {
         setCountry(dataSelected.value);
     });
 
-    function calcAmount() {
-        let amount = 0;
-        items.map(function (item) {
-            amount = amount + item.subtotal;
-        });
-        return amount;
-    }
-
+    // Função de callback para exibir o resumo da compra 
     function showSummary(data) {
         selectionCallbacks(data);
     }
 
+    // Recebendo o click do formulário de endereço e cartão
     function onClickConclusion(event) {
         event.preventDefault();
-        const amount = Number(calcAmount().replace(/[./]/g, ''));
+        const amount = utils.calcAmount(items);
+        const postData = utils.setSendData(listData, amount, items);
 
-        let listItem = items.map(function (item) {
-            delete item.subtotal;
-            return item;
+        // Realizando a requisição para criar a transação para a API do pagar.me 
+        api.fetchApi(postData).then(data => {
+            showSummary(data);
         });
-
-        api.fetchApi(listItem, amount)
-            .then(data => {
-                //console.log(data);
-                showSummary(data);
-            });
     }
 
     return (
@@ -235,6 +228,7 @@ const AddressCreditCart = ({ items, selectionCallbacks }) => {
     );
 }
 
+// Validação dos tipos das props
 AddressCreditCart.propTypes = {
     items: PropTypes.array.isRequired,
 }

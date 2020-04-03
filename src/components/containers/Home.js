@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Form, HeadBanner, ServiceMessage, Spinner } from '../styles/styles';
+// containers
 import Button from 'react-bootstrap/Button';
 import ProductsList from '../containers/ProductsList';
 import Cart from '../containers/Cart';
 import Checkout from './Checkout';
 import Summary from './Summary';
+// styles
 import { FaShoppingCart } from 'react-icons/fa';
+import { Form, HeadBanner, ServiceMessage, Spinner } from '../styles/styles';
 
 const Home = props => {
   const [products, setProducts] = useState();
@@ -18,7 +20,8 @@ const Home = props => {
   const [showSummary, setShowSummary] = useState(false);
   const [items, setItems] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
-  
+
+  // retorna uma promessa realizando uma requisição para pegar o mock de 10 produtos
   const fetchData = async () => {
     try {
       setFetching(true)
@@ -59,9 +62,8 @@ const Home = props => {
       setProducts(updatedProducts)
     }, [products]
   );
-
+  // Função de callback para exibir o sumário
   const selectionCallbackSummary = useCallback((transaction) => {
-    console.log('call back :: ', transaction);
     setTransactionData(transaction);
     setCheckout(false);
     setShowCart(false);
@@ -69,7 +71,7 @@ const Home = props => {
     setShowSummary(true);
   });
 
-
+  // Função de callback para exibir ou limpar o carrinho
   const selectionCart = () => {
     if (showCart) {
       fetchData();
@@ -83,12 +85,15 @@ const Home = props => {
     }
   }
 
+  // Função de callback para exibir o checkout e puchar o 
+  // formulário de endereço e dados do cartão
   const selectionCartCallback = () => {
     setShowProductList(false);
     setShowCart(false);
     setCheckout(true);
   }
 
+  // Função de callback do checkout para conclusão
   const selectionCheckoutCallback = () => {
     setShowProductList(false);
     setShowCart(false);
@@ -117,7 +122,12 @@ const Home = props => {
   return (
     <>
       <HeadBanner className="sticky alinhar-centro" data-testid='headBanner'>
-        <Button className="carrinho" variant={showCart ? "danger" : "success"} size="sm" onClick={selectionCart}>
+        <Button
+          className="carrinho"
+          variant={showCart ? "danger" : "success"}
+          size="sm"
+          onClick={selectionCart}
+        >
           <FaShoppingCart />{showCart ? " limpar" : " mostrar"}
         </Button>
       </HeadBanner>
@@ -126,7 +136,7 @@ const Home = props => {
       {fetching ? <Spinner /> :
         <div>
           <Form>
-            <Cart products={products} items={items} updateQuantityCallback={updateQuantityCallback}  selectionCallback={selectionCartCallback} isVisible={showCart} />
+            <Cart products={products} items={items} updateQuantityCallback={updateQuantityCallback} selectionCallback={selectionCartCallback} isVisible={showCart} />
           </Form>
 
           <Form>
@@ -136,7 +146,7 @@ const Home = props => {
           <Checkout selectionCallbacks={selectionCallbackSummary} items={items} selectionCallback={selectionCheckoutCallback} isVisible={showCheckout} />
 
           <Form>
-            <Summary isVisible={showSummary} transactionData={transactionData}/>
+            <Summary isVisible={showSummary} transactionData={transactionData} items={items} />
           </Form>
 
         </div>

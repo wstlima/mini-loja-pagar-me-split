@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from '../components/containers/Home';
 import GlobalStyle from '../components/styles/GlobalStyle';
+
 const App = () => (
   <BrowserRouter>
     <>
@@ -13,4 +14,4 @@ const App = () => (
   </BrowserRouter>
 )
 
-export default App
+export default App;

@@ -14,7 +14,7 @@ const Checkout = ({ isVisible, items, selectionCallbacks }) => {
             <SectionHeader className="titulo-wrapper">DADOS DO ENDEREÇO E CARTÃO DE CRÉDITO</SectionHeader>
           </Row>
           <ContentBlockForm>
-            <AddressCreditCart items={items} selectionCallbacks={selectionCallbacks}/>
+            <AddressCreditCart items={items} selectionCallbacks={selectionCallbacks} />
           </ContentBlockForm>
         </Grid>
       </Wrapper>

@@ -8,7 +8,7 @@ const SelectCountry = ({ value, selectionCallbacks }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    if (value===''){
+    if (value === '') {
       setSelectedOption('BRASIL');
     }
   });
