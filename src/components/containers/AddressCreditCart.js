@@ -231,6 +231,7 @@ const AddressCreditCart = ({ items, selectionCallbacks }) => {
 // Validação dos tipos das props
 AddressCreditCart.propTypes = {
     items: PropTypes.array.isRequired,
+    selectionCallbacks: PropTypes.func.isRequired
 }
 
 export default AddressCreditCart;

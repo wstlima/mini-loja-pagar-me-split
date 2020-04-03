@@ -10,7 +10,7 @@ import Summary from './Summary';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Form, HeadBanner, ServiceMessage, Spinner } from '../styles/styles';
 
-const Home = props => {
+const Home = () => {
   const [products, setProducts] = useState();
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState(false);

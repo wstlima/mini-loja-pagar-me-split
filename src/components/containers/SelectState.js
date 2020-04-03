@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SelectState = ({ value, selectionCallbacks }) => {
@@ -47,7 +48,7 @@ const SelectState = ({ value, selectionCallbacks }) => {
   function handleChange(selectedOption) {
     setSelectedOption(selectedOption.label);
     selectionCallbacks(selectedOption)
-  };
+  }
 
   return (
     <Select
@@ -62,5 +63,12 @@ const SelectState = ({ value, selectionCallbacks }) => {
     />
   )
 }
+
+// Validação dos tipos das props
+SelectState.propTypes = {
+  value: PropTypes.array.isRequired,
+  selectionCallbacks: PropTypes.func.isRequired
+}
+
 
 export default SelectState;
